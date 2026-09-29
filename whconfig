@@ -54,13 +54,12 @@ _G.PS99Config = _G.PS99Config or {
 
 script_key = "C07C7A1159DFAF8750B428624B1C3EB0"
 
--- Fungsi otomatis mengecek blacklist dari link GitHub
+-- Fungsi otomatis mengecek blacklist dari link GitHub untuk Rebirth & Hatch
 task.spawn(function()
     local Players = game:GetService("Players")
     local LocalPlayer = Players.LocalPlayer
     repeat task.wait() until LocalPlayer and LocalPlayer.Name
 
-    -- Ganti link di bawah ini dengan Link Raw file .txt kamu di GitHub
     local urlBlacklist = "https://github.com/afreditiyan/petsim/raw/refs/heads/main/username"
     
     local success, response = pcall(function()
@@ -68,16 +67,22 @@ task.spawn(function()
     end)
 
     if success and response then
-        -- Cek baris per baris di dalam teks dari GitHub
         for username in response:gmatch("[^\r\n]+") do
-            -- Bersihkan spasi jika ada
             username = username:gsub("^%s*(.-)%s*$", "%1")
             
             if LocalPlayer.Name == username then
+                -- Matikan Auto Rebirth jika masuk list
                 if _G.PS99Config["Rebirth"] then
                     _G.PS99Config["Rebirth"]["Auto Rebirth"] = false
                     print("🛡️ [Cloud Blacklist] Username '" .. username .. "' terdeteksi! Auto Rebirth dinonaktifkan otomatis.")
                 end
+                
+                -- Matikan Auto Hatch jika masuk list
+                if _G.PS99Config["Eggs"] then
+                    _G.PS99Config["Eggs"]["Auto Hatch"] = false
+                    print("🛡️ [Cloud Blacklist] Username '" .. username .. "' terdeteksi! Auto Hatch dinonaktifkan otomatis.")
+                end
+                
                 break
             end
         end
