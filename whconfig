@@ -1,57 +1,67 @@
 _G.PS99Config = _G.PS99Config or {
     ["Farming"] = {
-        ["Auto Tap"]             = true,
-        ["Tap Targets"]          = 5,
-        ["Stay In Best Zone"]    = true,
-        ["Auto Pick Farm Zone"] = true,
+        ["Auto Tap"]            = true,  -- toggle. attack breakables (this is the whole income engine)
+        ["Tap Targets"]         = 5,     -- number. how many breakables to hit at once. MEASURED: 5 is the peak (120,743 coins/s); 20 targets drops it to 40,630 because nothing dies
+        ["Stay In Best Zone"]   = true,  -- toggle. keep returning to the chosen farm zone instead of drifting
+        ["Auto Pick Farm Zone"] = true,  -- toggle. measure zones and farm the one that actually drops the most (NOT always the highest - zone 50 gave 0 diamonds/30s, zone 43 gave 188)
+        ["Endgame Gem Focus"]  = true,  -- toggle. after owning the latest zone and getting the final egg's strongest regular pet, stop hatching and farm gems
+        ["Endgame Probe Interval"] = 3600, -- number (seconds). recheck the best gem zone once per hour after endgame, reducing time spent touring
     },
     ["Zones"] = {
-        ["Auto Buy Zones"]    = true,
-        ["Auto World Travel"] = true,
-        ["World Retry After"] = 1800,
+        ["Auto Buy Zones"]    = true,    -- toggle. keep buying the next zone (unlocks rebirths + better eggs)
+        ["Auto World Travel"] = true,    -- toggle. move to a new world when unlocked. It VERIFIES it can break there and retreats if your pets are too weak
+        ["World Retry After"] = 1800,    -- number (seconds). after retreating from a world, wait this long before trying again
     },
     ["Pets"] = {
-        ["Auto Equip Best"]    = true,
-        ["Auto Buy Pet Slots"] = true,
+        ["Auto Equip Best"]    = true,   -- toggle. keep the team full, stacking COPIES of your strongest pet
+        ["Auto Buy Pet Slots"] = true,   -- toggle. buy more equip slots (the single biggest damage lever)
     },
     ["Eggs"] = {
-        ["Auto Hatch"]              = true,
-        ["Hatch Rounds"]            = 40,
-        ["Block Hatch Animation"] = true,
+        ["Auto Hatch"]            = true, -- toggle. hatch the best egg you can reach
+        ["Hatch Rounds"]          = 40,   -- number. hatches per trip (the trip is the expensive part, not the hatch)
+        ["Block Hatch Animation"] = true, -- toggle. hide the hatch/reward overlay (it makes the screen unusable at max hatch)
     },
     ["Rebirth"] = {
-        ["Auto Rebirth"] = true,
+        ["Auto Rebirth"] = true,         -- toggle. rebirth when eligible. It CHECKS the zone requirement first and will not walk to the shrine until you can actually rebirth
     },
     ["Boosts"] = {
-        ["Auto Potions"]    = true,
-        ["Potion Priority"] = { "Diamonds", "Treasure Hunter", "Lucky", "Coins", "Damage", "Walkspeed" },
-        ["Auto Fruits"]     = true,
-        ["Auto Flags"]      = true,
-        ["Auto Balloons"]   = true,
-        ["Auto Ultimate"]   = true,
+        ["Auto Potions"]    = true,      -- toggle. after a category fully expires, drink its HIGHEST mastery-usable tier; never overwrite any active potion in that category
+        ["Potion Priority"] = { "Diamonds", "Treasure Hunter", "Lucky", "Coins", "Damage", "Walkspeed" },  -- LIST. which potions matter most (the game caps how many are active at once)
+        ["Auto Fruits"]     = true,      -- toggle. eat fruit buffs
+        ["Auto Flags"]      = true,      -- toggle. place flag boosts
+        ["Auto Balloons"]   = true,      -- toggle. pop gift balloons. Works REMOTELY (no travel) and pays billions in coins
+        ["Auto Ultimate"]   = true,      -- toggle. fire your Ultimate the moment it charges
+    },
+    ["Enchants"] = {
+        ["Auto Equip Enchants"] = true,   -- toggle. equip the selected books while farming (hatching may temporarily use egg-luck books)
+        ["Equip Enchants"] = { "Diamonds", "Treasure Hunter", "Criticals", "Strong Pets", "Tap Power", "Explosive" },
+        -- LIST, in slot priority order. With 4 slots, use the first 4; Tap Power and Explosive fill slots as they unlock. Highest owned tier wins.
+        ["Upgrade Enchants"] = {},       -- LIST of book types to upgrade, e.g. { "Diamonds" }. {} = upgrade every enchant
     },
     ["Upgrades"] = {
-        ["Auto Upgrades"]    = true,
-        ["Auto Enchants"]    = true,
-        ["Max Enchant Tier"] = 25,
+        ["Auto Upgrades"]    = true,     -- toggle. buy zone upgrades
+        ["Auto Enchants"]    = true,     -- toggle. combine duplicate enchants into higher tiers (done in place, no travel)
+        ["Max Enchant Upgrades Per Stack"] = 25, -- number. limit tier-up attempts for each inventory stack per cycle
     },
     ["Extras"] = {
-        ["Auto Claim Rewards"] = true,
-        ["Auto Open Gifts"]    = true,
-        ["Auto Spin Wheels"]   = true,
-        ["Auto Boss"]          = true,
-        ["Auto Daycare"]       = true,
-        ["Daycare Pets"]       = {},
-        ["Auto Claim Mail"]    = true,
-        ["Auto Gold Rainbow"]  = true,
-        ["Auto Finish Goals"]  = true,
-        ["Auto Coin Jars"]     = true,
+        ["Auto Claim Rewards"] = true,   -- toggle. claim rank/timed/free rewards
+        ["Auto Open Gifts"]    = true,   -- toggle. open gift bags
+        ["Auto Spin Wheels"]   = true,   -- toggle. spin free wheels
+        ["Auto Boss"]          = true,   -- toggle. kill zone bosses. Only travels when a boss is ACTUALLY up - never waits around for a respawn
+        ["Auto Daycare"]       = true,   -- toggle. put pets in daycare for passive XP (the only thing that compounds)
+        ["Daycare Pets"]       = {},     -- LIST of pet names to enroll. {} = auto-pick, and only pets you own MULTIPLE copies of, so a one-of-a-kind powerhouse never leaves your team. e.g. { "Rainbow Knight Golem" }
+        ["Auto Claim Mail"]    = true,   -- toggle. claim your mailbox
+        ["Auto Gold Rainbow"]  = true,   -- toggle. convert duplicate pets into Golden, then Rainbow
+        ["Auto Finish Goals"]  = true,   -- toggle. actively complete rank goals instead of waiting them out
+        ["Auto Coin Jars"]     = true,   -- toggle. use coin jars
     },
     ["Misc"] = {
-        ["Anti AFK Interval"] = 45,
+        ["Show Stats"]        = true,    -- toggle. small draggable progress panel for normal users
+        ["Anti AFK"]          = true,    -- toggle. full anti-idle stack: real movement + input fallbacks + idle-listener suppression
+        ["Auto Rejoin"]       = true,    -- toggle. rejoin this place if Roblox still manages to show a disconnect prompt
+        ["Anti AFK Interval"] = 45,      -- number (seconds). how often the character physically walks around. Lower = moves more often
     },
 }
-
 script_key = "C07C7A1159DFAF8750B428624B1C3EB0"
 
 -- Fungsi otomatis mengecek blacklist dari link GitHub untuk Rebirth & Hatch
