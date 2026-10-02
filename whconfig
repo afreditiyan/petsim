@@ -36,7 +36,7 @@ _G.PS99Config = _G.PS99Config or {
         ["Auto Equip Enchants"] = true,   -- toggle. equip the selected books while farming (hatching may temporarily use egg-luck books)
         ["Equip Enchants"] = { "Diamonds", "Criticals", "Magnet", "Criticals", "Strong Pet" },
         -- LIST, in slot priority order. With 4 slots, use the first 4; Tap Power and Explosive fill slots as they unlock. Highest owned tier wins.
-        ["Upgrade Enchants"] = {"Diamonds", "Diamonds", "Treasure Hunter", "Criticals", "Fortune"},       -- LIST of book types to upgrade, e.g. { "Diamonds" }. {} = upgrade every enchant
+        ["Upgrade Enchants"] = { "Diamonds", "Criticals", "Magnet", "Criticals", "Strong Pet" },       -- LIST of book types to upgrade, e.g. { "Diamonds" }. {} = upgrade every enchant
     },
     ["Upgrades"] = {
         ["Auto Upgrades"]    = true,     -- toggle. buy zone upgrades
